@@ -86,7 +86,7 @@ recv_range (MPI_Comm comm, octave_value &ov, int source, int mytag)
 
       if (info == MPI_SUCCESS) 
         {
-          Range r (d[0], d[2], nelem); 
+          Range r (d[0], d[2], (octave_idx_type)nelem);
           ov = r;
         }
     }
@@ -330,7 +330,7 @@ recv_sp_mat (bool is_complex, MPI_Datatype TRcv, MPI_Comm comm,
 #define __MAKE_TYPE_BRANCH__(TMPI, T1, A1)                              \
   if (TRcv == TMPI)                                                     \
     {                                                                   \
-      A1 m (s[0], s[1], s[2]);                                          \
+      A1 m (s[0], s[1], (octave_idx_type)s[2]);                         \
       OCTAVE_LOCAL_BUFFER(T1, LBNDA, s[2]);                             \
       info = recv_vec (comm, LBNDA, s[2], TRcv, source, tanktag[4]);    \
       if (info != MPI_SUCCESS) return info;                             \
@@ -350,7 +350,7 @@ recv_sp_mat (bool is_complex, MPI_Datatype TRcv, MPI_Comm comm,
       if (TRcv == MPI_DOUBLE)
         {  
           TRcv = MPI_DOUBLE;
-          SparseComplexMatrix m (s[0], s[1], s[2]);
+          SparseComplexMatrix m (s[0], s[1], (octave_idx_type)s[2]);
           OCTAVE_LOCAL_BUFFER(double, LBNDA1, s[2]);
           OCTAVE_LOCAL_BUFFER(double, LBNDA2, s[2]);
 
